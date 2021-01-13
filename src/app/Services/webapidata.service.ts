@@ -24,7 +24,7 @@ export class WebAPIDataService {
         });
         return this.http.post(url, data,{ headers: header })
             .pipe(map((response:any) => {
-                if (response.token) {
+                if (response.data.token) {
                     localStorage.setItem('activeUser', JSON.stringify(response));
                 }
                 return response;
