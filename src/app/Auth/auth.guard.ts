@@ -13,15 +13,13 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let url = state.url.split("/")[1];    
     if (localStorage.getItem('activeUser') !=null) {
-        if(url !='login'){
+        if(url !='login' && url != 'dashboard'){
             // this.AppService.checkPermission(url)
-            // .pipe().subscribe(data => { 
+            // .pipe().subscribe(data => {  
             //   if(data['count']==0){
             //     this.router.navigate(['/dashboard']);
             //   } 
             // });
-            this.router.navigate(['/' +url]);
-        }else{
             this.router.navigate(['/dashboard']);
         }
         return true;

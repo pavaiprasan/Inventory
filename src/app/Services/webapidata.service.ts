@@ -23,10 +23,7 @@ export class WebAPIDataService {
             'Access-Control-Allow-Headers': 'X-Custom-Header, myheader, Accept, Content-Length, Content-Type, X-Forwaded-For'
         });
         return this.http.post(url, data,{ headers: header })
-            .pipe(map((response:any) => {
-                if (response.data.token) {
-                    localStorage.setItem('activeUser', JSON.stringify(response));
-                }
+            .pipe(map((response:any) => {                
                 return response;
             }));
 

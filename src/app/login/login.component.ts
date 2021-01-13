@@ -30,9 +30,15 @@ export class LoginComponent implements OnInit {
       console.log('kl')
       this.dataService.login('User','authendicate',this.userProfile)
           .pipe().subscribe(
-              data => {
-                  console.log(data);
-                  this.router.navigate(['/dashboard']);
+              userdata => {
+                  this.userProfile = userdata.data;
+                  if (this.userProfile.token) {
+                    localStorage.setItem('activeUser', JSON.stringify(this.userProfile));
+                    this.router.navigate(['/dashboard']);
+                  }
+                  else{
+                    localStorage.removeItem('activeUser');
+                  }                  
               },
               error => {
                   //this.alertService.error(error);
