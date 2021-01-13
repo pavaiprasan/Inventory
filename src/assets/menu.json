@@ -1,0 +1,33 @@
+[
+    {"id":"1","name":"Dashboard","icon":"fa fa-home","route":"dashboard","type":null,"submenu":""},
+    {"id":"2","name":"Customer","icon":"fa fa-user-o","route":"customer","type":null,"submenu":""},
+    {"id":"3","name":"supplier","icon":"fa fa-truck","route":"supplier","type":null,"submenu":""},
+    {"id":"4","name":"Manage User","icon":"fa fa-users","route":"user","type":null,"submenu":""},
+    {"id":"5","name":"Manage Product","icon":"fa fa-product-hunt ","route":"","type":"1",
+        "submenu":[
+            {"id":"1","menu_id":"5","subMenu":"Category","route":"category","status":"1","priority":"1"},
+            {"id":"2","menu_id":"5","subMenu":"Sub Category","route":"subcategory","status":"1","priority":"2"},
+            {"id":"3","menu_id":"5","subMenu":"Product","route":"product","status":"1","priority":"3"},
+            {"id":"4","menu_id":"5","subMenu":"Damaged Product","route":"damaged-product","status":"1","priority":"4"}
+        ]
+    },
+    {"id":"6","name":"Manage Purchases","icon":"fa fa-shopping-basket","route":"","type":"1",
+        "submenu":[
+            {"id":"5","menu_id":"6","subMenu":"New Purchases","route":"purchases","status":"1","priority":"1"},
+            {"id":"6","menu_id":"6","subMenu":"Purchases History","route":"purchases-history","status":"1","priority":"2"}
+        ]
+    },
+    {"id":"7","name":"Manage Sales","icon":"fa fa-credit-card","route":"","type":"1",
+        "submenu":[
+            {"id":"7","menu_id":"7","subMenu":" New Sales","route":"sales","status":"1","priority":"1"},
+            {"id":"8","menu_id":"7","subMenu":"Sales History","route":"sales-history","status":"1","priority":"2"}
+        ]
+    },
+    {"id":"8","name":"Report","icon":"fa fa-bug","route":"","type":"1",
+        "submenu":[
+            {"id":"11","menu_id":"8","subMenu":"Sales Report","route":"sales-report","status":"1","priority":"1"},
+            {"id":"12","menu_id":"8","subMenu":"Purchases Report","route":"purchases-report","status":"1","priority":"2"}
+        ]
+    },
+    {"id":"9","name":"Setting","icon":"fa fa-cog","route":"setting","type":null,"submenu":""}
+]
