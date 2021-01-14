@@ -31,4 +31,31 @@ export module SiteModel{
         modifiedOn : Date;
         token : number; 
     }
+
+    export class Menu {
+        menuId : number;
+        menuName : string; 
+        icon : string;
+        route : string;
+        isSubMenu : number;
+        order : number;
+        status: number;
+        createdBy : number;
+        createdOn : Date;
+        modifiedBy : number;
+        modifiedOn : Date;
+        subMenu : Array<SubMenu>; 
+    }
+    export class SubMenu {
+        subMenuId : number;
+        subMenuName : string; 
+        menuId : number;
+        route : string;
+        status : number;
+        order : number;
+        createdBy : number;
+        createdOn : Date;
+        modifiedBy : number;
+        modifiedOn : Date;
+    }
 }

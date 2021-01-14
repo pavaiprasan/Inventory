@@ -11,18 +11,18 @@ export class LayoutComponent implements OnInit {
 
   constructor(private dataService: WebAPIDataService) { }
 
-  menu:any;
+  menu:Array<SiteModel.Menu>;
   userName: string;
   userProfile: SiteModel.UserProfile;
     
   ngOnInit() {
     this.userProfile = JSON.parse(localStorage.getItem("activeUser"));
-    this.getMenu();
+    this.getMenuByUserId();
     }
   
-    getMenu(){
-      this.dataService.getMenu().pipe().subscribe(data => {
-          this.menu = data;
+    getMenuByUserId(){
+      this.dataService.getMenuByUserId('Common','getmenubyuserid',{userId : this.userProfile.userId}).pipe().subscribe(responsedata => {
+          this.menu = responsedata.data;
       });
     }
 }

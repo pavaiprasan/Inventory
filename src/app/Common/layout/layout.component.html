@@ -21,14 +21,14 @@
       <nav class="sidebar-nav">
         <ul class="nav">
           <ng-container *ngFor="let item of menu; let i=index">  
-            <li class="nav-item"  *ngIf="item.type==null">
-                <a class="nav-link" routerLinkActive="active" routerLink="/{{item.route}}"><i class="{{item.icon}}"></i>{{item.name}}</a>
+            <li class="nav-item"  *ngIf="item.isSubMenu==0">
+                <a class="nav-link" routerLinkActive="active" routerLink="/{{item.route}}"><i class="{{item.icon}}"></i>{{item.menuName}}</a>
             </li>
-            <li class="nav-item nav-dropdown" *ngIf="item.type==1" routerLinkActive="open" appNavDropdown>
-                <a *ngIf="item.type==1" class="nav-link nav-dropdown-toggle" appNavDropdownToggle><i class="{{item.icon}}"></i>{{item.name}}</a>
-                <ul *ngIf="item.type==1" class="nav-dropdown-items">
-                    <li class="nav-item" *ngFor="let sub of menu[i]['submenu']">
-                        <a routerLinkActive="active" routerLink="/{{sub.route}}" class="nav-link"> {{sub.subMenu}}</a>
+            <li class="nav-item nav-dropdown" *ngIf="item.isSubMenu==1" routerLinkActive="open" appNavDropdown>
+                <a *ngIf="item.isSubMenu==1" class="nav-link nav-dropdown-toggle" appNavDropdownToggle><i class="{{item.icon}}"></i>{{item.menuName}}</a>
+                <ul *ngIf="item.isSubMenu==1" class="nav-dropdown-items">
+                    <li class="nav-item" *ngFor="let sub of menu[i]['subMenu']">
+                        <a routerLinkActive="active" routerLink="/{{sub.route}}" class="nav-link"> {{sub.subMenuName}}</a>
                     </li>
                 </ul>
             </li>
