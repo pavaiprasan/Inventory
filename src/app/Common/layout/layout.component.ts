@@ -21,7 +21,7 @@ export class LayoutComponent implements OnInit {
     }
   
     getMenuByUserId(){
-      this.dataService.getMenuByUserId('Common','getmenubyuserid',{userId : this.userProfile.userId}).pipe().subscribe(responsedata => {
+      this.dataService.getData('Common','getmenubyuserid',{userId : this.userProfile.userId}).pipe().subscribe(responsedata => {
           this.menu = responsedata.data;
       });
     }

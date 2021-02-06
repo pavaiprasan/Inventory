@@ -18,7 +18,7 @@ export class WebAPIDataService {
         return this.apiURL + controller + '/' + action;
     }
 
-    login(controller: string, action: string, data : any) {
+    postData(controller: string, action: string, data : any) {
         var url = this.getCompleteURL(controller,action);        
         return this.http.post(url, data,{ headers: this.header })
             .pipe(map((response:any) => {                
@@ -32,7 +32,11 @@ export class WebAPIDataService {
         this.router.navigate(['/login']);
     }
 
-    getMenuByUserId(controller: string, action: string, data : any){
+    getActiveUser(){
+        return JSON.parse(localStorage.getItem('activeUser'));
+    }
+
+    getData(controller: string, action: string, data : any){
         var url = this.getCompleteURL(controller,action); 
         let params = new HttpParams();
         if(data){
@@ -44,5 +48,5 @@ export class WebAPIDataService {
             .pipe(map((response:any) => {                
                 return response;
             }));
-    }
+    }    
 }

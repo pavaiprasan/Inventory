@@ -1,0 +1,131 @@
+<div id="loding" [ngClass]="{ 'loding-hide': lodingImage }">
+    <img src="assets/img/loding.gif">
+</div>
+<div id="ui-view" [ngClass]="{ 'loding-ui-view': showloding }">
+    <div class="animated fadeIn">
+        <form method="post" enctype="multipart/form-data" class="form-horizontal" (ngSubmit)="createPurchase()" #f="ngForm">
+            <div class="row">
+                <!--/.col-->
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-block">
+                            <h5 class="card-title">Purchases Products</h5>
+                            <div class="row">
+                                <div class="col-md-12 px-3">
+                                    <fieldset class="scheduler-border">
+                                        <legend class="scheduler-border">Supplier</legend>
+                                        <div class="form-group row">
+                                            <label for="purchaseNumber" class="col-2 col-form-label">Purchase Number <span>*</span> </label>
+                                            <!-- <div class="col-2"> -->
+                                                <input class="form-control col-2 " type="text" id="purchaseNumber" name="purchaseNumber" required [(ngModel)]="purchase.purchaseNumber">
+                                            <!-- </div> -->
+                                        <!-- </div>
+                                        <div class="form-group row"> -->
+                                            <label for="supplierId" class="col-2 form-control-label">Supplier <span>*</span> </label>
+                                            <!-- <div class="col-2"> -->
+                                                <select class="form-control col-2" id="supplierId" name="supplierId" [(ngModel)]="purchase.supplierId" required>
+                                                    <option value="" selected disabled>Please Select</option>
+                                                    <option *ngFor="let item of supplierList" [ngValue]=item.supplierId>{{item.supplierName}}</option>
+                                                </select>
+                                            <!-- </div> -->
+                                        <!-- </div>
+                                        <div class="form-group row"> -->
+                                            <label for="date" class="col-2 col-form-label">Date <span>*</span> </label>
+                                            <!-- <div class="col-2"> -->
+                                                <div class="input-group col-2">
+                                                  <input class="form-control" placeholder="yyyy-mm-dd" name="date" id="date" required [(ngModel)]="purchase.purchaseDate" ngbDatepicker #d="ngbDatepicker">
+                                                  <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                  </button>
+                                                </div>
+                                            <!-- </div> -->
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <div class="form-group row">
+                                        <!-- <label for="category" class="col-4 form-control-label">Product</label> -->
+                                        <div class="col-md-12">
+                                            <select class="form-control" id="allProduct" name="allProduct" [(ngModel)]="productId" (ngModelChange)="getProductById($event)">
+                                                <option value="" selected disabled>Product</option>
+                                                <option *ngFor="let item of productList" [ngValue]=item.productId>{{item.productName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="add-product">
+                                            <thead>
+                                                <tr>
+                                                  <th>#</th>
+                                                  <th>Product Code</th>
+                                                  <th>Name</th>
+                                                  <th>Quantity</th>
+                                                  <th>Unit Price</th>
+                                                  <th>Total</th>
+                                                  <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let product of purchase.purchaseProducts; let i=index" class="panel panel-default">
+                                                    <td>{{i + 1}}</td>
+                                                    <td><input type="text" class="form-control form-control-sm" name="productCode_{{i}}" readonly [(ngModel)]="purchase.purchaseProducts[i].productCode"></td>
+                                                    <td><input type="text" class="form-control form-control-sm" name="productName_{{i}}" [(ngModel)]="purchase.purchaseProducts[i].productName"></td>
+                                                    <td><input type="number" min="1" class="form-control form-control-sm" name="quantity_{{i}}" [(ngModel)]="purchase.purchaseProducts[i].quantity" (change)="itemChange(i)"></td>
+                                                    <td><input type="number" class="form-control form-control-sm" name="purchasePrice_{{i}}" [(ngModel)]="purchase.purchaseProducts[i].purchasePrice" (change)="itemChange(i)"></td>
+                                                    <td><input type="text" class="form-control form-control-sm" name="total" name="totalPrice_{{i}}" [(ngModel)]="purchase.purchaseProducts[i].totalPrice" readonly></td>
+                                                    <td><button (click)="deleteProduct(i)" class="btn btn-danger btn-sm">x</button></td> 
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 px-3">
+
+                                </div>
+                                <div class="col-md-6 px-3">
+                                    <fieldset class="scheduler-border">
+                                        <legend class="scheduler-border">Payment</legend>
+                                        <div class="form-group row">
+                                            <label for="totalAmount" class="col-5 form-control-label">Grand Total</label>
+                                            <div class="col-7">
+                                                <input class="form-control form-control-sm" type="number" id="totalAmount" name="totalAmount" readonly [(ngModel)]="purchase.totalAmount">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="paidAmount" class="col-5 form-control-label">Amount <span>*</span></label>
+                                            <div class="col-7">
+                                                <input class="form-control form-control-sm" type="number" id="paidAmount" name="paidAmount" required [(ngModel)]="payment.paidAmount" (ngModelChange)="amountChange()">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="balanceAmount" class="col-5 form-control-label">Balance Amount</label>
+                                            <div class="col-7">
+                                                <input class="form-control form-control-sm" type="number" id="balanceAmount" name="balanceAmount" readonly [(ngModel)]="purchase.balanceAmount">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="type" class="col-5 form-control-label">Payment Type <span>*</span> </label>
+                                            <div class="col-7">
+                                                <select class="form-control form-control-sm" type="text" id="paymentType" name="paymentType" required [(ngModel)]="payment.paymentTypeId">
+                                                    <option value="">Please Select</option>
+                                                    <option *ngFor="let item of paymentTypeList" [ngValue]=item.paymentTypeId>{{item.type}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-info btn-sm" [disabled]="!f.form.valid" >Create New Purchase</button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

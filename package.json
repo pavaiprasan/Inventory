@@ -21,6 +21,7 @@
     "@angular/router": "~8.1.1",
     "@ng-bootstrap/ng-bootstrap": "^5.0.0",
     "@ng-select/ng-select": "^3.0.2",
+    "@types/datatables.net": "^1.10.19",
     "angular-datatables": "^8.0.0",
     "chart.js": "^2.8.0",
     "core-js": "^3.1.4",

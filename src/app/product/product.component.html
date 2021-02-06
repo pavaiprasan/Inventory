@@ -1,0 +1,198 @@
+<div id="loding" [ngClass]="{ 'loding-hide': lodingImage }">
+    <img src="assets/img/loding.gif">
+</div>
+<div id="ui-view" [ngClass]="{ 'loding-ui-view': showloding }">
+	<div class="animated fadeIn">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-block">
+						<div class="card-block-title">
+							<h5 class="card-title">Product</h5>
+							<button id="add_btn" type="button" class="btn btn-info pull-right" (click)="addProduct(content)" style="float: right;"> 
+								Add Product
+							</button>
+                        </div>
+                        <br/>
+						<div id="table" class="table-responsive">
+							<table  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-hover" width="100%">
+								<thead>
+									<tr>
+										<th>Product Code</th>
+										<th>Product Name</th>
+                                        <th>Category</th>
+										<th>Sub Category</th>                                        
+										<th>Purchase Price</th>
+										<th>Selling Price</th>
+										<th>Status</th>
+										<th class="action">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let item of productList; let i = index" [attr.data-index]="i">
+										<td>{{item.productCode}}</td>
+										<td>{{item.productName}}</td>
+                                        <td>{{item.category.categoryName}}</td>
+										<td>{{item.subCategory.subCategoryName}}</td>                                        
+										<td>{{item.purchasePrice}}</td>
+										<td>{{item.sellingPrice}}</td>
+										<td><span *ngIf="item.status==1" class="badge badge-success">Active</span> <span *ngIf="item.status==0" class="badge badge-danger">Inactive</span></td>
+                                        <td class="action"><button type="button" class="btn btn-info btn-sm" (click)="openProductInfoMdal(this.productList[i].id,productinfo)"><i class="fa fa-info"></i></button> 
+                                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="editProduct(this.productList[i].productId,content)"><i class="fa fa-pencil fa-lg mt-1"></i></button></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/.col-->
+		</div>
+	</div>
+	<ng-template #content let-c="close" let-d="dismiss" id="customer-add"> <!-- class="modal fade" -->
+		<div class="modal-info" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">{{modalTitle}}</h4>
+					<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="post" enctype="multipart/form-data" class="form-horizontal" #f="ngForm">
+						<div class="form-group row">
+							<label for="productCode" class="col-5 col-form-label">Product Code <span>*</span></label>
+							<div class="col-7">
+								<input class="form-control" type="text" id="productCode" name="prductCode" required [(ngModel)]="product.productCode">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="productName" class="col-5 col-form-label">Name <span>*</span></label>
+							<div class="col-7">
+								<input class="form-control" type="text" id="productName" name="productName" required [(ngModel)]="product.productName">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="category" class="col-5 form-control-label">Category <span>*</span></label>
+							<div class="col-7">
+								<select class="form-control" id="category" name="category"  required [(ngModel)]="product.categoryId" (ngModelChange)="getSubCategoryById($event)">
+									<option [ngValue]="" selected disabled>Please Select</option>
+									<option *ngFor="let item of categoryList" [ngValue]="item.categoryId">{{item.categoryName}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="subCategory" class="col-5 form-control-label">Sub Category <span>*</span></label>
+							<div class="col-7">
+								<select class="form-control" id="subCategory" name="subCategory" required [(ngModel)]="product.subCategoryId">
+									<option [ngValue]="" selected>Please Select</option>
+									<option *ngFor="let item of subCategoryList" [ngValue]="item.subCategoryId">{{item.subCategoryName}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="purchasePrice" class="col-5 col-form-label">Purchase Price <span>*</span></label>
+							<div class="col-7">
+								<input class="form-control" type="number" id="purchasePrice" name="purchasePrice" required [(ngModel)]="product.purchasePrice">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="sellingPrice" class="col-5 col-form-label">Selling Price <span>*</span></label>
+							<div class="col-7">
+								<input class="form-control" type="number" id="sellingPrice" name="sellingPrice" required [(ngModel)]="product.sellingPrice">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="description" class="col-5 col-form-label">Description</label>
+							<div class="col-7">
+								<textarea class="form-control" type="text" id="description" name="description" [(ngModel)]="product.description"></textarea>
+							</div>
+						</div>
+						<div class="form-group row" *ngIf="product.productId">
+							<label for="status" class="col-5 col-form-label">Status <span>*</span></label>
+							<div class="col-7">
+								<select class="form-control" id="status" name="status" [(ngModel)]="product.status">
+									<option [ngValue]=0>Inactive</option>
+									<option [ngValue]=1>Active</option>
+								</select>
+							</div>
+						</div>						
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" aria-label="Close" (click)="d('Cross click')">Close</button>
+					<button type="submit" class="btn btn-outline-primary" [disabled]="!f.form.valid" (click) ="saveProduct()">{{SaveButtonText}}</button>
+				</div>
+			</div>
+		</div>
+	</ng-template>
+
+	<ng-template #productinfo let-c="close" let-d="dismiss" id="customerinfo">
+	    <div class="modal-info" role="document" >
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h4 class="modal-title">Product Information</h4>
+	                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <div class="row">
+	            		<div class="col-lg-12">
+		                    <table class="table table-bordered">
+		                        <tbody>
+		                            <tr>
+		                                <th>Product Code</th>
+		                                <td>{{productInfo.serial_number}}</td>
+		                            </tr>
+		                            <tr>
+		                                <th>Product Name</th>
+		                                <td>{{productInfo.name}}</td>
+		                            </tr>
+		                            <tr>
+		                                <th>Category</th>
+		                                <td>{{productInfo.category}}</td>
+		                            </tr>
+		                            <tr>
+		                                <th>Sub Category</th>
+		                                <td>{{productInfo.subCategory}}</td>
+		                            </tr>
+		                            <tr>
+		                                <th>Purchase Price</th>
+		                                <td>{{productInfo.purchase_price}}</td>
+		                            </tr>
+		                            <tr>
+		                                <th>Selling Price</th>
+		                                <td>{{productInfo.selling_price}}</td>
+		                            </tr>
+		                            <tr>
+		                                <th>Quantity</th>
+		                                <td>{{productInfo.stock_quantity}}</td>
+		                            </tr>
+		                            <tr>
+		                                <th>Note</th>
+		                                <td>{{productInfo.note}}</td>
+		                            </tr>
+		                            <tr>
+		                                <th>Image</th>
+		                                <td><img style="height: 100px;width: 100px;" class="img-thumbnail" *ngIf="productInfo.image !=''" [src]="'data:image/jpg;base64,'+productInfo.image" /></td>
+		                            </tr>
+		                        </tbody>
+		                    </table>
+				        </div>
+	            	</div>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-secondary" aria-label="Close" (click)="d('Cross click')">Close</button>
+	            </div>
+	        </div>
+	    </div>
+	</ng-template>
+</div>
+
+
+
+
+
+
+

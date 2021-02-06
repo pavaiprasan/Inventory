@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     
     if(this.model.username !=undefined  && this.model.password != undefined){
       console.log('kl')
-      this.dataService.login('User','authendicate',this.userProfile)
+      this.dataService.postData('User','authendicate',this.userProfile)
           .pipe().subscribe(
               userdata => {
                   this.userProfile = userdata.data;
