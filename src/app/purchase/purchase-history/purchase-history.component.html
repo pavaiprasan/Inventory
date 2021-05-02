@@ -1,0 +1,51 @@
+<div id="loding" [ngClass]="{ 'loding-hide': lodingImage }">
+    <img src="assets/img/loding.gif">
+</div>
+<div id="ui-view" [ngClass]="{ 'loding-ui-view': showloding }">
+  <div class="animated fadeIn">
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="card">
+                  <div class="card-block">
+                    <div class="card-block-title">
+                      <h5 class="card-title">Purchases History</h5>
+                    </div>
+                    <br/>
+                      <div class="table-responsive">
+                        <table id="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-hover" width="100%">
+                          <thead>
+                              <tr>
+                                <th>Sl</th>
+                                <th>Purchase Number</th>
+                                <th>Supplier Name</th>
+                                <th>Total Amount</th>
+                                <th>Balance</th>
+                                <th>Date</th>
+                                <th class="action">Action</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let item of purchasesList; let i = index" [attr.data-index]="i">
+                                <td>{{i+1}}</td>
+                                <td>{{item.purchaseNumber}}</td>
+                                <td>{{item.supplier.supplierName}}</td>
+                                <td>{{item.totalAmount}}</td>
+                                <td>{{item.balanceAmount}}</td>
+                                <td>{{item.purchaseDate.toString('DD-MM-YYYY')}}</td>
+                                <td class="action">
+                                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="purchasesDetails(this.purchasesList[i].purchaseId)"><i class="fa fa-eye"></i></button> 
+                                    <button *ngIf="item.balanceAmount > 0" (click)="payBalance(this.purchasesList[i].purchaseId)" class="btn btn-outline-info btn-sm"><i class="fa fa-money"></i> Due Payment</button> 
+                                    <span *ngIf="item.due==0" class="badge badge-success">Paid</span> 
+                                    <span *ngIf="item.due < 0" class="badge badge-primary">Advance</span>
+                                </td>
+                              </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          <!--/.col-->
+      </div>
+  </div>
+</div>

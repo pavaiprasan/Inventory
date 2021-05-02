@@ -24,6 +24,7 @@
 										<th>Sub Category</th>                                        
 										<th>Purchase Price</th>
 										<th>Selling Price</th>
+										<th>Available Quantity</th>
 										<th>Status</th>
 										<th class="action">Action</th>
 									</tr>
@@ -36,6 +37,7 @@
 										<td>{{item.subCategory.subCategoryName}}</td>                                        
 										<td>{{item.purchasePrice}}</td>
 										<td>{{item.sellingPrice}}</td>
+										<td>{{item.availableCount}}</td>
 										<td><span *ngIf="item.status==1" class="badge badge-success">Active</span> <span *ngIf="item.status==0" class="badge badge-danger">Inactive</span></td>
                                         <td class="action"><button type="button" class="btn btn-info btn-sm" (click)="openProductInfoMdal(this.productList[i].id,productinfo)"><i class="fa fa-info"></i></button> 
                                             <button type="button" class="btn btn-outline-primary btn-sm" (click)="editProduct(this.productList[i].productId,content)"><i class="fa fa-pencil fa-lg mt-1"></i></button></td>

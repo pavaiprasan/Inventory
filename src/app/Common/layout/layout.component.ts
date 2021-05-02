@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { WebAPIDataService } from 'src/app/Services/webapidata.service';
 import { SiteModel } from '../sitemodel';
 
@@ -9,7 +10,7 @@ import { SiteModel } from '../sitemodel';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor(private dataService: WebAPIDataService) { }
+  constructor(private dataService: WebAPIDataService, private router : Router) { }
 
   menu:Array<SiteModel.Menu>;
   userName: string;
@@ -24,5 +25,10 @@ export class LayoutComponent implements OnInit {
       this.dataService.getData('Common','getmenubyuserid',{userId : this.userProfile.userId}).pipe().subscribe(responsedata => {
           this.menu = responsedata.data;
       });
+    }
+
+    logout(){
+      localStorage.removeItem('activeUser');
+      this.router.navigate(['/login']);
     }
 }

@@ -1,1 +1,110 @@
-<p>dashboard works!</p>
+<div id="loding" [ngClass]="{ 'loding-hide': lodingImage }">
+    <img src="assets/img/loding.gif">
+</div>
+<div id="ui-view" [ngClass]="{ 'loding-ui-view': showloding }">
+  <div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-5">
+          <div class="card">
+            <div class="card-block">
+              <h6 class="card-title">Today's Report</h6>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                      <th></th>
+                      <th>Quantity</th>
+                      <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                      <td>Purchase</td>
+                      <td>{{daywisereport.purchasedCount}}</td>
+                      <td>{{daywisereport.purchasedPrice}}</td>
+                  </tr>
+                  <tr>
+                      <td>Sales</td>
+                      <td>{{daywisereport.saleCount}}</td>
+                      <td>{{daywisereport.salePrice}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="card">
+            <div class="card-block">
+              <h6 class="card-title">Monthly Report</h6>
+              <div>
+                  <div style="display: block">
+                  <canvas baseChart
+                          [datasets]="barChartData"
+                          [labels]="barChartLabels"
+                          [options]="barChartOptions"
+                          [legend]="barChartLegend"
+                          [chartType]="barChartType">
+                  </canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-block p-3 clearfix">
+                    <i class="fa fa-user-o bg-primary p-3 font-2xl mr-3 float-left"></i>
+                    <div class="text-uppercase text-muted font-weight-bold font-xs mb-0 mt-2">Customer</div>
+                    <div class="h5">{{dashboardData.customerCount}}</div>
+                </div>
+                <div class="card-footer px-3 py-2">
+                    <a class="font-weight-bold font-xs btn-block text-muted" href="#" routerLink="/customer">View More <i class="fa fa-angle-right float-right font-lg"></i></a>
+                </div>
+            </div>
+            
+        </div>
+        <!--/.col-->
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-block p-3 clearfix">
+                    <i class="fa fa-truck bg-info p-3 font-2xl mr-3 float-left"></i>
+                    <div class="text-uppercase text-muted font-weight-bold font-xs mb-0 mt-2">Supplier</div>
+                    <div class="h5">{{dashboardData.supplierCount}}</div>
+                </div>
+                <div class="card-footer px-3 py-2">
+                    <a class="font-weight-bold font-xs btn-block text-muted" href="#" routerLink="/supplier">View More <i class="fa fa-angle-right float-right font-lg"></i></a>
+                </div>
+            </div>
+        </div>
+        <!--/.col-->
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-block p-3 clearfix">
+                    <i class="fa fa-product-hunt bg-warning p-3 font-2xl mr-3 float-left"></i>
+                    <div class="text-uppercase text-muted font-weight-bold font-xs mb-0 mt-2">Product</div>
+                    <div class="h5">{{dashboardData.productCount}}</div>
+                </div>
+                <div class="card-footer px-3 py-2">
+                    <a class="font-weight-bold font-xs btn-block text-muted" href="#" routerLink="/product">View More <i class="fa fa-angle-right float-right font-lg"></i></a>
+                </div>
+            </div>
+        </div>
+        <!--/.col-->
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-block p-3 clearfix">
+                    <i class="fa fa-users bg-danger p-3 font-2xl mr-3 float-left"></i>
+                    <div class="text-uppercase text-muted font-weight-bold font-xs mb-0 mt-2">User</div>
+                    <div class="h5">{{dashboardData.userCount}}</div>
+                </div>
+                <div class="card-footer px-3 py-2">
+                    <a class="font-weight-bold font-xs btn-block text-muted" href="#" routerLink="/user">View More <i class="fa fa-angle-right float-right font-lg"></i></a>
+                </div>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+  </div>
+</div>

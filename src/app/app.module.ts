@@ -4,7 +4,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ChartsModule } from 'ng2-charts';
+import { ChartsModule, ThemeService } from 'ng2-charts';
 import { DataTablesModule } from 'angular-datatables';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -26,9 +26,22 @@ import { SubCategoryComponent } from './sub-category/sub-category.component';
 import { ProductComponent } from './product/product.component';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { NotificationComponent } from './Common/notification/notification.component';
+import { PurchaseHistoryComponent } from './purchase/purchase-history/purchase-history.component';
+import { PurchaseDetailsComponent } from './purchase/purchase-details/purchase-details.component';
+import { PurchasePaymentComponent } from './purchase/purchase-payment/purchase-payment.component';
 
 //services
 import { NotificationService } from './Services/notification.service';
+import { SaleComponent } from './sale/sale.component';
+import { SalesHistoryComponent } from './sale/sales-history/sales-history.component';
+import { SalesDetailsComponent } from './sale/sales-details/sales-details.component';
+import { SalesPaymentComponent } from './sale/sales-payment/sales-payment.component';
+import { SalesReportComponent } from './report/sales-report/sales-report.component';
+import { PurchaseReportComponent } from './report/purchase-report/purchase-report.component';
+import { OutofstockComponent } from './report/outofstock/outofstock.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
+
 
 
 @NgModule({
@@ -47,7 +60,19 @@ import { NotificationService } from './Services/notification.service';
     SubCategoryComponent,
     ProductComponent,
     PurchaseComponent,
-    NotificationComponent
+    NotificationComponent,
+    PurchaseHistoryComponent,
+    PurchaseDetailsComponent,
+    PurchasePaymentComponent,
+    SaleComponent,
+    SalesHistoryComponent,
+    SalesDetailsComponent,
+    SalesPaymentComponent,
+    SalesReportComponent,
+    PurchaseReportComponent,
+    OutofstockComponent,
+    ProfileComponent,
+    ChangepasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +86,8 @@ import { NotificationService } from './Services/notification.service';
     DataTablesModule
   ],
   providers: [
-    NotificationService
+    NotificationService,
+    ThemeService
   ],
   bootstrap: [AppComponent]
 })

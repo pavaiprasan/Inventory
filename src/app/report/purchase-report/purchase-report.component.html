@@ -1,0 +1,73 @@
+<div id="loding" [ngClass]="{ 'loding-hide': lodingImage }">
+    <img src="assets/img/loding.gif">
+</div>
+<div id="ui-view" [ngClass]="{ 'loding-ui-view': showloding }">
+  <div class="animated fadeIn">
+      <form method="post" enctype="multipart/form-data" class="form-horizontal" (ngSubmit)="searchReport()" #f="ngForm">
+        <div class="row justify-content-end">        
+          <div class="col-lg-12">
+            <div class="card">
+                <div class="card-block">
+                  <h5 class="card-title">Purchases Report</h5>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <div class="form-group row">
+                        <label for="fromdate" class="col-5 col-form-label">From Date </label>
+                        <div class="col-8">
+                            <div class="input-group">
+                              <input class="form-control" placeholder="yyyy-mm-dd" name="fromdate" id="fromdate" [(ngModel)]="report.fromdate" required ngbDatepicker #d="ngbDatepicker">
+                              <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                <i class="fa fa-calendar"></i>
+                              </button>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-group row">
+                        <label class="col-sm-5 form-control-label" for="todate">To Date</label>
+                        <div class="col-8">
+                            <div class="input-group">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="todate" id="todate" [(ngModel)]="report.todate" required ngbDatepicker #to="ngbDatepicker">
+                                <button class="input-group-addon" (click)="to.toggle()" type="button">
+                                  <i class="fa fa-calendar"></i>
+                                </button>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <p><button type="button" type="submit" class="btn btn-info">search</button> <button type="button" *ngIf="pdf" class="btn btn-secondary" title="PDF" (click)="pdfExport()"><i class="fa fa-file-pdf-o"></i> PDF</button> <button type="button" *ngIf="exl" title="XL" class="btn btn-secondary" (click)="xlExport()"><i class="fa fa-file-excel-o"></i> Excel</button></p>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table id="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-hover" width="100%">
+                      <thead>
+                          <tr>
+                              <th>#Sl</th>
+                              <th>Purchases Code</th>
+                              <th>Supplier Name</th>
+                              <th>Date</th>
+                              <th>Amount</th>
+                              <th>Blance Amount</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                         <tr *ngFor="let item of purchasesList; let i = index" [attr.data-index]="i">
+                              <td>{{i+1}}</td>
+                              <td>{{item.purchaseNumber}}</td>
+                              <td>{{item.supplier.supplierName}}</td>
+                              <td>{{item.purchaseDate.toString('DD-MM-YYYY')}}</td>
+                              <td>{{item.totalAmount}}</td>
+                              <td>{{item.balanceAmount}}</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </form>
+  </div>
+</div>

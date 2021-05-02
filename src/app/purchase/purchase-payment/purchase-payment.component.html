@@ -1,0 +1,116 @@
+<div id="loding" [ngClass]="{ 'loding-hide': lodingImage }">
+    <img src="assets/img/loding.gif">
+</div>
+<div id="ui-view" [ngClass]="{ 'loding-ui-view': showloding }">
+	<div class="animated fadeIn">
+		<form method="post" enctype="multipart/form-data" class="form-horizontal" #f="ngForm">
+			<div class="row justify-content-end">
+				<div class="col-lg-12">
+					<div class="card">
+					    <div class="card-header card-header-dark">
+					        Invoice<strong>#{{purchase.purchaseNumber}}</strong>
+					    </div>
+					    <div class="card-block">
+					        <div class="table-responsive">
+					            <table class="table table-bordered">
+					                <thead>
+					                    <tr>
+					                        <th>Sl</th>
+                                            <th>Product Code</th>
+                                            <th>Name</th>
+                                            <th>Quantity</th>
+                                            <th>Purchase Price</th>
+                                            <th>Total Price</th>
+					                    </tr>
+					                </thead>
+					                <tbody>
+					                    <tr *ngFor="let item of purchase.purchaseProducts; let i = index" [attr.data-index]="i">
+                                            <td class="center">{{i+1}}</td>
+                                            <td class="left">{{item.product.productCode}}</td>
+                                            <td class="left">{{item.product.productName}}</td>
+                                            <td class="center">{{item.quantity}}</td>
+                                            <td class="right">{{item.purchasePrice}}</td>
+                                            <td class="right">{{item.totalPrice}}</td>
+                                        </tr>
+					            </table>
+					        </div>
+					        <div class="row">
+					        	<div class="col-lg-6 px-3" style="margin-top: 10px">
+					                <table class="table table-clear">
+                                        <tbody>
+                                            <tr class = "table-bordered" >
+                                                <td class="left"><strong>Total Amount: </strong></td>
+                                                <td class="right">{{purchase.totalAmount}}</td>
+												<td class="left"><strong>Amount Paid: </strong></td>
+                                                <td class="right">{{purchase.totalAmount - purchase.balanceAmount}}</td>
+												<td class="left"><strong>Balance Amount: </strong></td>
+                                                <td class="right">{{purchase.balanceAmount}}</td>
+                                            </tr>
+                                            <tr>
+												<td  colspan="6">
+                                                <div class="table-responsive">
+													<table class="table table-bordered">	
+														<thead>
+															<tr>
+																<th>Sl</th>
+																<th>Payment Date</th>
+																<th>Amount Paid</th>
+																<th>Payment Type</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr *ngFor="let item of purchase.payment; let i = index" [attr.data-index]="i">
+																<td class="center">{{i+1}}</td>
+																<td class="left">{{item.paymentDate}}</td>
+																<td class="left">{{item.paidAmount}}</td>
+																<td class="left">{{item.paymentType.type}}</td>
+															</tr>
+													</table>
+												</div>
+												</td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+					            </div>
+					        	<div class="col-lg-6 px-3" *ngIf="purchase.balanceAmount > 0">
+					                <fieldset class="scheduler-border">
+                                    	<legend class="scheduler-border">Payment</legend>
+					                	<div class="form-group row">
+                                            <label for="date" class="col-5 col-form-label">Date <span>*</span> </label>
+                                            <div class="col-7">
+                                                <div class="input-group">
+                                                  <input class="form-control" placeholder="yyyy-mm-dd" name="date" id="date" [(ngModel)]="payment.paymentDate" required ngbDatepicker #d="ngbDatepicker">
+                                                  <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                  </button>
+                                                </div>
+                                            </div>
+                                        </div>
+					                    <div class="form-group row">
+					                        <label for="paidAmount" class="col-5 col-form-label">Paid Amount <span>*</span></label>
+					                        <div class="col-7">
+					                             <input class="form-control" type="number" id="paidAmount" name="paidAmount" required [(ngModel)]="payment.paidAmount"> 
+					                        </div>
+					                    </div>
+					                    <div class="form-group row">
+				                            <label for="paymentType" class="col-5 form-control-label">Payment Type <span>*</span></label>
+				                            <div class="col-7">
+				                                <select class="form-control" type="text" id="paymentType" name="paymentType" required [(ngModel)]="payment.paymentTypeId">
+				                                    <option value="" selected>Please Select</option>
+				                                    <option *ngFor="let item of paymentTypeList" [ngValue]="item.paymentTypeId">{{item.type}}</option>
+				                                </select>
+				                            </div>
+				                        </div>
+				                        <button type="submit" class="btn btn-success" [disabled]="!f.form.valid" (click)="savePayment()">Payment</button>
+					                </fieldset>
+						        </div>
+					            <!--/.col-->
+					        </div>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>  

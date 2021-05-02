@@ -75,7 +75,7 @@ export class PurchaseComponent implements OnInit {
 
   getPaymentType(){
     this.loadShow();
-    this.dataService.getData('Purchase','getpaymentType',{}).pipe().subscribe(responsedata => {
+    this.dataService.getData('Purchase','getpaymenttype',{}).pipe().subscribe(responsedata => {
       this.paymentTypeList = responsedata.data;
       this.loadHide();
     });

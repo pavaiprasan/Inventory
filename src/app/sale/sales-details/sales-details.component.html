@@ -1,0 +1,87 @@
+<div id="loding" [ngClass]="{ 'loding-hide': lodingImage }">
+    <img src="assets/img/loding.gif">
+</div>
+<div id="ui-view" [ngClass]="{ 'loding-ui-view': showloding }">
+    <div class="animated fadeIn">
+    	<div class="card">
+            <div class="card-header card-header-dark">
+                Invoice
+                <strong>#{{sales.salesNumber}}</strong>
+                <a href="#" target="_blank" class="btn btn-sm btn-info float-right" (click)="printView()"><i class="fa fa-print"></i> Print</a>
+            </div>
+            <div class="card-block" id="printJS-form">
+                <!-- <div class="row mb-12">
+                    <div class="col-sm-4">
+                        <h6 class="mb-3">From:</h6>
+                        <div>
+                            <strong>{{purchasesHistory.settingData.company_name}}</strong>
+                        </div>
+                        <div>Phone: {{purchasesHistory.settingData.phone}}</div>
+                        <div>Email: {{purchasesHistory.settingData.email}}</div>
+                        <div>Currency: {{purchasesHistory.settingData.currency}}</div>
+                    </div>
+                    <div class="col-sm-8 d-flex justify-content-end">
+                        <div class="col-sm-4">
+                            <div>
+        	                <h6 class="mb-3">To</h6>
+                             <strong>Purchase Code :</strong> <span style="color:#1ab394;"> {{purchasesHistory.purchase_code}}</span>
+                            </div>
+                            <div>Name: {{purchasesHistory.name}}</div>
+                            <div>Phone: {{purchasesHistory.phone}}</div>
+                            <div>Email: {{purchasesHistory.email}}</div>
+        	                <div>{{purchasesHistory.date}}</div>
+        	            </div>
+                    </div>
+                </div>
+                <br/> -->
+                <div class="table">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                              <th>Sl</th>
+                              <th>Product Code</th>
+                              <th>Name</th>
+                              <th>Quantity</th>
+                              <th>Sales Price</th>
+                              <th>Total Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of sales.salesProducts; let i = index" [attr.data-index]="i">
+                                <td class="center">{{i+1}}</td>
+                                <td class="left">{{item.product.productCode}}</td>
+                                <td class="left">{{item.product.productName}}</td>
+                                <td class="center">{{item.quantity}}</td>
+                                <td class="right">{{item.salesPrice}}</td>
+                                <td class="right">{{item.totalPrice}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-lg-12 d-flex justify-content-end">
+                        <div class="col-lg-4">
+                            <table class="table table-clear">
+                                <tbody>
+                                    <tr>
+                                        <td class="left"><strong>Total Amount</strong></td>
+                                        <td class="right">{{sales.totalAmount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left"><strong>Total Amount Paid</strong></td>
+                                        <td class="right">{{sales.totalAmount - sales.balanceAmount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left"><strong>Balance Amount</strong></td>
+                                        <td class="right">{{sales.balanceAmount}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

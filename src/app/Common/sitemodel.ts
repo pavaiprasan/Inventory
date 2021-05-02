@@ -129,6 +129,7 @@ export module SiteModel{
         createdOn : Date;
         modifiedBy : number;
         modifiedOn : Date;
+        availableCount: number;
         category: Category = new Category();
         subCategory: SubCategory = new SubCategory();
     }
@@ -149,7 +150,7 @@ export module SiteModel{
         supplier: Supplier = new Supplier();
         purchaseProducts: Array<PurchaseProducts> = [];
         payment: Array<Payment> = [];
-    }
+    }           
 
     export class PurchaseProducts {
         purchaseProductId : number;
@@ -190,5 +191,79 @@ export module SiteModel{
         createdOn : Date;
         modifiedBy : number;
         modifiedOn : Date;
+    }
+
+    export class Sales {
+        salesId : number;
+        salesNumber : string;
+        customerId : number;
+        salesDate : Date;
+        status: number;
+        salesAmount: number;
+        totalAmount: number;
+        balanceAmount: number;
+        discount: number;
+        createdBy : number;
+        createdOn : Date;
+        modifiedBy : number;
+        modifiedOn : Date;
+        customer: Customer = new Customer();
+        salesProducts: Array<SalesProducts> = [];
+        salesPayment: Array<SalesPayment> = [];
+    }
+
+    export class SalesProducts {
+        salesProductId : number;
+        salesId : number;
+        productId : number;
+        quantity : number;
+        salesPrice :number;
+        totalPrice : number;
+        status: number;
+        createdBy : number;
+        createdOn : Date;
+        modifiedBy : number;
+        modifiedOn : Date;
+        product: Product = new Product();
+        productName: string;
+        productCode: string;
+    }
+
+    export class SalesPayment {
+        salesPaymentId : number;
+        salesId : number;
+        paymentTypeId : number;
+        paidAmount : number;
+        salesPaymentDate: Date;
+        status: number;
+        createdBy : number;
+        createdOn : Date;
+        modifiedBy : number;
+        modifiedOn : Date;
+        paymentType: PaymentType = new PaymentType();
+    }
+
+    export class DaywiseReport{
+        purchasedCount: number;
+        purchasedPrice: number;
+        saleCount: number;
+        salePrice: number;
+    }
+
+    export class CData{
+        date: Date;
+        amount: number;
+    }
+
+    export class ChartData{
+        purchase: CData [] = [];
+        sales: CData [] = [];
+    }
+
+    export class Dashboard{
+        customerCount: number;
+        supplierCount: number;
+        productCount: number;
+        userCount: number;
     }
 }
